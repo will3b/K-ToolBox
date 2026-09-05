@@ -1,0 +1,27 @@
+[Unit]
+Description=K-ToolBox — AI Writing Tools (Next.js Standalone)
+After=network.target
+
+[Service]
+Type=simple
+User=www-data
+Group=www-data
+WorkingDirectory=/var/www/k-toolbox
+ExecStart=/usr/bin/env NODE_ENV=production bun .next/standalone/server.js
+Restart=on-failure
+RestartSec=5
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=k-toolbox
+
+# Security hardening
+NoNewPrivileges=true
+ProtectSystem=strict
+ReadWritePaths=/var/www/k-toolbox/data /var/www/k-toolbox/prisma /var/www/k-toolbox/.next
+
+# Environment file
+EnvironmentFile=/var/www/k-toolbox/.env
+
+[Install]
+WantedBy=multi-user.target
+

@@ -1,0 +1,53 @@
+# Dependencies
+node_modules
+
+# Build output
+.next
+
+# Database (will be volume-mounted in container)
+db/*.db
+db/*.db-journal
+
+# IDE
+.vscode
+.idea
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+dev.log
+server.log
+
+# Misc
+.git
+.gitignore
+.dockerignore
+
+# Search artifacts
+search*.json
+tool-results/
+
+# Scripts & examples
+scripts/
+examples/
+tests/
+
+# Docker
+Dockerfile
+docker-compose.yml
+
+# Download artifacts
+download/
+
+# Caddy & systemd (not needed in container)
+Caddyfile
+toolbox.service
+
+# Environment (user provides their own)
+.env
+
+# Lock files (regenerated in build)
+bun.lock

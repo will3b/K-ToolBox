@@ -1,0 +1,62 @@
+# ── K-ToolBox — Production Docker Compose ──
+# Run:  docker compose up -d --build
+# Logs: docker compose logs -f app
+# Stop: docker compose down
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: k-toolbox
+    restart: unless-stopped
+    ports:
+      # Bind to host port (map to HAProxy backend)
+      - "${APP_PORT:-3000}:3000"
+    environment:
+      # ── Database ──
+      DATABASE_URL: "file:/app/data/toolbox.db"
+
+      # ── Site URL ──
+      NEXT_PUBLIC_SITE_URL: "${NEXT_PUBLIC_SITE_URL:-http://localhost:3000}"
+
+      # ── Admin Settings Password (CHANGE THIS) ──
+      SETTINGS_PASSWORD: "${SETTINGS_PASSWORD:-changeme}"
+
+      # ── Pro Cookie Signing Secret (Min 32 random chars) ──
+      PRO_COOKIE_SECRET: "${PRO_COOKIE_SECRET:-change-this-to-a-random-string-min-32-chars}"
+
+      # ── PostHog Analytics (optional) ──
+      NEXT_PUBLIC_POSTHOG_KEY: "${NEXT_PUBLIC_POSTHOG_KEY:-}"
+      NEXT_PUBLIC_POSTHOG_HOST: "${NEXT_PUBLIC_POSTHOG_HOST:-https://us.i.posthog.com}"
+
+      # ── Stripe (optional) ──
+      STRIPE_SECRET_KEY: "${STRIPE_SECRET_KEY:-}"
+      STRIPE_WEBHOOK_SECRET: "${STRIPE_WEBHOOK_SECRET:-}"
+      STRIPE_PRICE_ID: "${STRIPE_PRICE_ID:-}"
+      NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: "${NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY:-}"
+
+      # ── LemonSqueezy (optional) ──
+      LEMONSQUEEZY_API_KEY: "${LEMONSQUEEZY_API_KEY:-}"
+      LEMONSQUEEZY_WEBHOOK_SECRET: "${LEMONSQUEEZY_WEBHOOK_SECRET:-}"
+      LEMONSQUEEZY_STORE_ID: "${LEMONSQUEEZY_STORE_ID:-}"
+      LEMONSQUEEZY_PRODUCT_ID: "${LEMONSQUEEZY_PRODUCT_ID:-}"
+    volumes:
+      # Persist SQLite database volume across updates
+      - toolbox_data:/app/data
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1:3000/api/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "20m"
+        max-file: "5"
+
+volumes:
+  toolbox_data:
+    driver: local
+

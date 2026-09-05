@@ -1,0 +1,36 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model ProUser {
+  id             String   @id @default(cuid())
+  email          String   @unique
+  isActive       Boolean  @default(true)
+  provider       String   // "stripe" | "lemonsqueezy"
+  providerCustomerId String? // Stripe customer ID or LemonSqueezy customer ID
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  @@index([email])
+  @@index([isActive])
+}
+
+model AiConfig {
+  id        String   @id @default(cuid())
+  // Which provider preset is selected ("openai" | "anthropic" | "google" | "openrouter" | "custom")
+  provider  String   @default("openai")
+  // Base URL for the OpenAI-compatible API
+  baseUrl   String
+  // API key (encrypted at rest would be ideal, but SQLite makes this complex)
+  apiKey    String
+  // Optional: specific model name (e.g. "gpt-4o", "claude-sonnet-4-20250514", "gemini-2.5-pro")
+  model     String?
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
