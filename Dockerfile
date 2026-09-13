@@ -39,11 +39,9 @@ COPY --from=builder /app/.next/standalone ./
 COPY --from=builder /app/.next/static ./.next/static
 COPY --from=builder /app/public ./public
 
-# Copy Prisma schema and CLI (needed for db push at runtime)
+# Copy Prisma schema and node_modules (needed for db push at runtime)
 COPY --from=builder /app/prisma ./prisma
-COPY --from=builder /app/node_modules/.prisma ./node_modules/.prisma
-COPY --from=builder /app/node_modules/@prisma ./node_modules/@prisma
-COPY --from=builder /app/node_modules/prisma ./node_modules/prisma
+COPY --from=builder /app/node_modules ./node_modules
 
 # Ensure data directory exists and is owned by nextjs
 RUN mkdir -p /app/data && chown nextjs:nodejs /app/data
