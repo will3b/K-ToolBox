@@ -357,7 +357,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                   </span>
                 </div>
                 {!isPro && (
-                  <span className="text-[11px] text-muted-foreground/50">$9</span>
+                  <span className="text-[11px] text-muted-foreground/50">$49</span>
                 )}
               </a>
               <a

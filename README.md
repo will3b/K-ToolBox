@@ -34,7 +34,7 @@
 
 It includes:
 - **Free Tier with Daily Limits**: 5 daily generations per tool per IP address (managed via a leak-free, auto-pruning TTL cache).
-- **Pro Tier ($9 One-Time)**: Cryptographically signed token sessions (HMAC-SHA256) granting permanent unlimited access.
+- **Pro Tier ($49 One-Time)**: Cryptographically signed token sessions (HMAC-SHA256) granting permanent unlimited access.
 - **Dynamic AI Switching**: Configure or switch LLM providers (OpenAI, Anthropic, Gemini, Groq, Together, or self-hosted vLLM/Ollama) at runtime via the protected `/settings` dashboard.
 - **SEO & Structured Data**: Complete JSON-LD schemas (`WebApplication`, `BreadcrumbList`, `FAQPage`, `WebSite`, `Organization`) and dynamic sitemaps.
 
@@ -127,7 +127,7 @@ cp .env.example .env
 | `NEXT_PUBLIC_POSTHOG_HOST`| No | PostHog ingest host | `https://us.i.posthog.com` |
 | `STRIPE_SECRET_KEY` | No | Stripe Secret Key | `sk_live_...` |
 | `STRIPE_WEBHOOK_SECRET` | No | Stripe Webhook signing secret | `whsec_...` |
-| `STRIPE_PRICE_ID` | No | Stripe Price ID for $9 Pro one-time purchase | `price_...` |
+| `STRIPE_PRICE_ID` | No | Stripe Price ID for $49 Pro one-time purchase | `price_...` |
 | `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY` | No | Stripe Publishable Key | `pk_live_...` |
 | `LEMONSQUEEZY_API_KEY` | No | LemonSqueezy API Key | `eyJ...` |
 | `LEMONSQUEEZY_WEBHOOK_SECRET` | No | LemonSqueezy Webhook signing secret | `secret_...` |

@@ -19,7 +19,7 @@ import { cn } from '@/lib/utils';
 import { usePostHog } from 'posthog-js/react';
 import { track } from '@/lib/analytics';
 
-const PRICE_MONTHLY = 9;
+const PRICE_MONTHLY = 49;
 const STRIPE_PRICE_ID = process.env.NEXT_PUBLIC_STRIPE_PRICE_ID || 'price_placeholder';
 const LEMONSQUEEZY_VARIANT_ID = process.env.NEXT_PUBLIC_LEMONSQUEEZY_VARIANT_ID || '';
 
@@ -367,7 +367,7 @@ export function PricingClient() {
             <div>
               <p className="font-medium text-foreground mb-1">Is this a subscription?</p>
               <p className="text-muted-foreground leading-relaxed">
-                No. It is a one-time payment. You pay $9 once and get unlimited access forever.
+                No. It is a one-time payment. You pay $49 once and get unlimited access forever.
                 No recurring charges, no surprises.
               </p>
             </div>
