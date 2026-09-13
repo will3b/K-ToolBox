@@ -39,10 +39,11 @@ COPY --from=builder /app/.next/standalone ./
 COPY --from=builder /app/.next/static ./.next/static
 COPY --from=builder /app/public ./public
 
-# Copy Prisma schema (needed for db push at runtime)
+# Copy Prisma schema and CLI (needed for db push at runtime)
 COPY --from=builder /app/prisma ./prisma
 COPY --from=builder /app/node_modules/.prisma ./node_modules/.prisma
 COPY --from=builder /app/node_modules/@prisma ./node_modules/@prisma
+COPY --from=builder /app/node_modules/prisma ./node_modules/prisma
 
 # Ensure data directory exists and is owned by nextjs
 RUN mkdir -p /app/data && chown nextjs:nodejs /app/data
@@ -57,6 +58,6 @@ HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
 USER nextjs
 
 # Startup script: sync database schema with visible logging then start server
-CMD ["sh", "-c", "echo '==> Initializing SQLite schema...' && bunx prisma db push --skip-generate && echo '==> Starting K-ToolBox server...' && bun server.js"]
+CMD ["sh", "-c", "echo '==> Initializing SQLite schema...' && bun ./node_modules/prisma/build/index.js db push --skip-generate && echo '==> Starting K-ToolBox server...' && bun server.js"]
 
 
