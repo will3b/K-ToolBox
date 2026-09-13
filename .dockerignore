@@ -49,5 +49,3 @@ toolbox.service
 # Environment (user provides their own)
 .env
 
-# Lock files (regenerated in build)
-bun.lock
