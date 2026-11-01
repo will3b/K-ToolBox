@@ -10,6 +10,7 @@ services:
       dockerfile: Dockerfile
     container_name: k-toolbox
     restart: unless-stopped
+    mem_limit: 768m
     ports:
       # Bind to host port (map to HAProxy backend)
       - "${APP_PORT:-3000}:3000"
